@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>SIFT Matching Demo</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            margin: 16px;
+        }
+
+        .row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            margin-right: 16px;
+        }
+
+        #stats {
+            margin-top: 8px;
+        }
+
+        label {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<h1>SIFT Image Matching</h1>
+<div class="row">
+    <div>
+        <label for="fileA">Image A</label>
+        <input id="fileA" type="file" accept="image/*"/>
+    </div>
+    <div>
+        <label for="fileB">Image B</label>
+        <input id="fileB" type="file" accept="image/*"/>
+    </div>
+    <div>
+        <label for="topK">Top matches</label>
+        <input id="topK" type="number" min="1" max="2000" step="1" value="20" style="width: 90px;"/>
+    </div>
+    <button id="runBtn" disabled>Run Matching</button>
+</div>
+<div id="stats">Loading defaults</div>
+<div class="row">
+    <div>
+        <canvas id="canvasA"></canvas>
+        <div>Image A</div>
+    </div>
+    <div>
+        <canvas id="canvasB"></canvas>
+        <div>Image B</div>
+    </div>
+</div>
+
+<canvas id="matchCanvas"></canvas>
+
+<script type="module" src="./index.js"></script>
+</body>
+</html>
