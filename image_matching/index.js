@@ -1,4 +1,4 @@
-import init, { sift, match_descriptors_topk, resize_image, rgba_to_gray } from '../pkg/sift.js';
+import init, { sift, match_descriptors_topk, resize_image, rgba_to_gray } from 'sift.js';
 
 const fileA = document.getElementById('fileA');
 const fileB = document.getElementById('fileB');
@@ -20,7 +20,7 @@ let imageDataB = null;
 function setStatus(msg) { statsEl.textContent = msg; }
 
 async function ensureWasm() {
-  await init(new URL('../pkg/sift_bg.wasm', import.meta.url));
+  await init(new URL('sift_bg.wasm', import.meta.url));
 }
 
 
