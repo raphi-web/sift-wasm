@@ -43,36 +43,22 @@ async function loadAndResizeImage(file, canvas, ctx, targetSize = 400) {
   const img = new Image();
   img.src = URL.createObjectURL(file);
   await img.decode();
-  
+
   const originalWidth = img.naturalWidth;
   const originalHeight = img.naturalHeight;
-  
-  // Load original image to get pixel data
-  const tempCanvas = document.createElement('canvas');
-  const tempCtx = tempCanvas.getContext('2d');
-  tempCanvas.width = originalWidth;
-  tempCanvas.height = originalHeight;
-  tempCtx.drawImage(img, 0, 0);
-  
-  const originalImageData = tempCtx.getImageData(0, 0, originalWidth, originalHeight);
-  await ensureWasm(); // Ensure WASM is loaded
 
-  const grayscaleData = rgba_to_gray(originalImageData.data, originalWidth, originalHeight);
-  const resizeResult = resize_image(grayscaleData, originalWidth, originalHeight, targetSize);
-  
-  const resizedWidth = resizeResult.width;
-  const resizedHeight = resizeResult.height;
-  const resizedGrayscale = resizeResult.data;
-  
-  // Convert back to ImageData for display
-  const resizedImageData = grayscaleToImageData(resizedGrayscale, resizedWidth, resizedHeight);
-  
-  // Display on canvas
+  // Compute resized dimensions (keep aspect ratio, target long edge)
+  const scale = targetSize / Math.max(originalWidth, originalHeight);
+  const resizedWidth = Math.max(1, Math.round(originalWidth * scale));
+  const resizedHeight = Math.max(1, Math.round(originalHeight * scale));
+
+  // Draw scaled color image directly to canvas (no grayscale here)
   canvas.width = resizedWidth;
   canvas.height = resizedHeight;
-  ctx.putImageData(resizedImageData, 0, 0);
-  
-  return resizedImageData;
+  ctx.drawImage(img, 0, 0, resizedWidth, resizedHeight);
+
+  // Return color ImageData for later processing
+  return ctx.getImageData(0, 0, resizedWidth, resizedHeight);
 }
 
 async function loadURLIntoCanvas(url, canvas, ctx) {
