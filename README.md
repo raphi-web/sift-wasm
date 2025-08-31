@@ -22,7 +22,3 @@ Try out the live demonstration at: [https://raphi-web.github.io/sift-wasm/](http
 - wasm-pack
 - Node.js and npm
 - A modern web browser
-
-## Getting Started
-
-1. Clone the repository:
