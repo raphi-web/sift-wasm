@@ -69,8 +69,7 @@ pub fn match_descriptors_with_scores(desc1: &[f32], desc2: &[f32], d: usize, rat
         return Vec::new();
     }
 
-    let mut out: Vec<f32> = Vec::new();
-    out.reserve(n1 * 3);
+    let mut out: Vec<f32> = Vec::with_capacity(n1 * 3);
 
     for i in 0..n1 {
         let q = &desc1[i * d..(i + 1) * d];
