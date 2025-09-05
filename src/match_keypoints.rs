@@ -9,7 +9,7 @@ fn l2_sq(a: &[f32], b: &[f32]) -> f32 {
     acc
 }
 
-fn best_two_in_set<'a>(query: &'a [f32], set: &'a [f32], d: usize) -> Option<(usize, f32, f32)> {
+fn best_two_in_set(query: &[f32], set: &[f32], d: usize) -> Option<(usize, f32, f32)> {
     // Finds the two closest vectors to query in set based on L2 distance
     // Returns index of best match along with best and second best distances
     if d == 0 { return None; }
